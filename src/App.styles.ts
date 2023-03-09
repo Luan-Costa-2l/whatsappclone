@@ -15,7 +15,6 @@ export const Sidebar = styled('div') `
         padding: 0 15px;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid black;
 
         .header--profile {
             width: 40px;
@@ -43,6 +42,32 @@ export const Sidebar = styled('div') `
                     background-color: #DDD;
                 }
             }
+        }
+    }
+`;
+
+export const SearchArea = styled('div') `
+    height: 50px;
+    padding: 5px 15px;
+    background-color: #F6F6F6;
+    border-bottom: 1px solid #EEE;
+
+    .search--input {
+        height: 100%;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        background-color: #FFF;
+        border-radius: 25px;
+        overflow: hidden;
+
+        input {
+            flex: 1;
+            height: 100%;
+            padding: 5px;
+            margin-left: 5px;
+            outline: 0;
+            border: 0;
         }
     }
 `;

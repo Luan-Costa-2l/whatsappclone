@@ -1,7 +1,8 @@
-import { Container, ContentArea, Sidebar } from "./App.styles"
+import { Container, ContentArea, SearchArea, Sidebar } from "./App.styles"
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
 
 const App = () => {
     return (
@@ -21,6 +22,12 @@ const App = () => {
                         </div>
                     </div>
                 </div>
+                <SearchArea>
+                    <div className="search--input">
+                        <SearchIcon fontSize="small" style={{color: '#919191'}} />
+                        <input type="search" name="search" placeholder="Procurar ou começar uma nova conversa." />
+                    </div>
+                </SearchArea>
             </Sidebar>
             <ContentArea>
             ...
