@@ -9,6 +9,8 @@ export const Container = styled('div') `
 
 export const Sidebar = styled('div') `
     width: 415px;
+    display: flex;
+    flex-direction: column;
 
     .header {
         height: 60px;
@@ -70,6 +72,11 @@ export const SearchArea = styled('div') `
             border: 0;
         }
     }
+`;
+
+export const ChatList = styled('div') `
+    flex: 1;
+    background-color: #FFF;
 `;
 
 export const ContentArea = styled('div') `

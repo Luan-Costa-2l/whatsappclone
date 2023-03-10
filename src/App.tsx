@@ -1,4 +1,4 @@
-import { Container, ContentArea, SearchArea, Sidebar } from "./App.styles"
+import { ChatList, Container, ContentArea, SearchArea, Sidebar } from "./App.styles"
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -28,6 +28,9 @@ const App = () => {
                         <input type="search" name="search" placeholder="Procurar ou começar uma nova conversa." />
                     </div>
                 </SearchArea>
+                <ChatList>
+
+                </ChatList>
             </Sidebar>
             <ContentArea>
             ...
