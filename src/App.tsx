@@ -6,10 +6,12 @@ import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import { ChatItem } from './components/ChatItem';
+import { ChatIntro } from './components/ChatIntro';
 
 const App = () => {
 
     const [chatList, setChatList] = useState([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, ]);
+    const [activeChat, setActiveChat] = useState();
 
     return (
         <Container>
@@ -41,7 +43,9 @@ const App = () => {
                 </ChatList>
             </Sidebar>
             <ContentArea>
-            ...
+                {activeChat === undefined &&
+                    <ChatIntro />
+                }
             </ContentArea>
         </Container>
     )

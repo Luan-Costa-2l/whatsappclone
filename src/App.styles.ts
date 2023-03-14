@@ -93,6 +93,5 @@ export const ChatList = styled('div') `
 `;
 
 export const ContentArea = styled('div') `
-    background-color: green;
     flex: 1;
 `;
