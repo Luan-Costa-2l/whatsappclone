@@ -8,7 +8,8 @@ export const Container = styled('div') `
 `;
 
 export const Sidebar = styled('div') `
-    width: 415px;
+    width: 35%;
+    max-width: 415px;
     display: flex;
     flex-direction: column;
 
@@ -77,6 +78,18 @@ export const SearchArea = styled('div') `
 export const ChatList = styled('div') `
     flex: 1;
     background-color: #FFF;
+    overflow-y: auto;
+    
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #EEE;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+    }
 `;
 
 export const ContentArea = styled('div') `
