@@ -26,6 +26,9 @@ export const ChatItemBody = styled('div') `
         height: 72px;
         border-bottom: 1px solid #DDD;
 
+        flex-wrap: nowrap;
+        min-width: 0;
+
         .chatItemBody--line {
             display: flex;
             justify-content: space-between;
@@ -42,12 +45,10 @@ export const ChatItemBody = styled('div') `
             .chatItemBody--lastMsg {
                 font-size: 14px;
                 color: #999;
-                display: flex;
                 
-                flex-wrap: wrap;
-                width: 300px;
-
                 p {
+                    width: 100%;
+                    max-width: 320px;
                     margin: 0;
                     overflow: hidden;
                     white-space: nowrap;
