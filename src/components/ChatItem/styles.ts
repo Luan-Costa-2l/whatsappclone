@@ -6,8 +6,8 @@ export const ChatItemBody = styled('div') `
     align-items: center;
     cursor: pointer;
 
-    &:hover {
-        background-color: #DDD;
+    &:hover, &.active {
+        background-color: #EEE;
     }
 
     .chatItemBody--avatar img {
@@ -24,7 +24,7 @@ export const ChatItemBody = styled('div') `
         justify-content: center;
         padding: 10px 10px 10px 0;
         height: 72px;
-        border-bottom: 1px solid #DDD;
+        border-bottom: 1px solid #EEE;
 
         flex-wrap: nowrap;
         min-width: 0;

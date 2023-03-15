@@ -7,11 +7,17 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import { ChatItem } from './components/ChatItem';
 import { ChatIntro } from './components/ChatIntro';
+import { ChatItemType } from './types';
 
 const App = () => {
 
-    const [chatList, setChatList] = useState([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, ]);
-    const [activeChat, setActiveChat] = useState();
+    const [chatList, setChatList] = useState<ChatItemType[]>([
+        {chatId: 1, title: 'Fulano de Tal', image: 'https://graph.facebook.com/1584754295372323/picture'},
+        {chatId: 2, title: 'Ciclano ', image: 'https://graph.facebook.com/1584754295372323/picture'},
+        {chatId: 3, title: 'Beltrano de Call', image: 'https://graph.facebook.com/1584754295372323/picture'},
+        {chatId: 4, title: 'Luan Costa', image: 'https://graph.facebook.com/1584754295372323/picture'},
+    ]);
+    const [activeChat, setActiveChat] = useState<ChatItemType | undefined>();
 
     return (
         <Container>
@@ -38,11 +44,14 @@ const App = () => {
                 </SearchArea>
                 <ChatList>
                     {chatList.map((item, index) => (
-                        <ChatItem key={index} />
+                        <ChatItem key={index} item={item} active={item.chatId === activeChat?.chatId} onClick={() => setActiveChat(item)} />
                     ))}
                 </ChatList>
             </Sidebar>
             <ContentArea>
+                {activeChat !== undefined &&
+                    <div>...</div>
+                }
                 {activeChat === undefined &&
                     <ChatIntro />
                 }

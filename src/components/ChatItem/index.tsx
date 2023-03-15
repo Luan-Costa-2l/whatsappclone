@@ -1,21 +1,21 @@
+import { ChatItemType } from "../../types";
 import { ChatItemBody } from "./styles"
 
 type Props = {
-    img: string;
-    name: string;
-    date: string;
-    lastMessage: string;
+    item: ChatItemType;
+    active: boolean;
+    onClick: () => void;
 }
 
-export const ChatItem = () => {
+export const ChatItem = ({ item, active, onClick }: Props) => {
     return (
-        <ChatItemBody>
+        <ChatItemBody onClick={onClick} className={active ? 'active': ''}>
             <div className="chatItemBody--avatar">
-                <img src="https://graph.facebook.com/1584754295372323/picture" alt="" />
+                <img src={item.image} alt="" />
             </div>
             <div className="chatItemBody--lines">
                 <div className="chatItemBody--line">
-                    <div className="chatItemBody--name">Luan Cordeiro</div>
+                    <div className="chatItemBody--name">{item.title}</div>
                     <div className="chatItemBody--date">19:45</div>
                 </div>
                 <div className="chatItemBody--line">
