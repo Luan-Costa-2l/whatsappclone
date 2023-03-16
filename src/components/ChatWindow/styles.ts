@@ -54,6 +54,21 @@ export const WindowBody = styled('div') `
         background-size: center;
     }
 
+    .windowBody--emojiArea {
+
+        .EmojiPickerReact {
+            transition: all .3s ease;
+        }
+
+        .EmojiPickerReact li.epr-emoji-category .epr-emoji-category-label {
+            position: block;
+        }
+
+        .EmojiPickerReact, .EmojiPickerReact li.epr-emoji-category .epr-emoji-category-label {
+            background-color: #EDEDED;
+        }
+    }
+
     .windowBody--footer {
         padding: 10px 15px;
         display: flex;
@@ -68,6 +83,8 @@ export const WindowBody = styled('div') `
 
             .windowBody--btn {
                 cursor: pointer;
+                overflow: hidden;
+                transition: all 0.3s ease;
             }
         }
 
