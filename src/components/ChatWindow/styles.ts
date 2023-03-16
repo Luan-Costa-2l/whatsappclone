@@ -46,4 +46,55 @@ export const WindowBody = styled('div') `
             }
         }
     }
+
+    .windowBody--content {
+        flex: 1;
+        padding: 0 25px;
+        background-image:  url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+        background-size: center;
+    }
+
+    .windowBody--footer {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        min-height: 60px;
+        border-left: 1px solid #DDD;
+
+        .windowBody--pre {
+            display: flex;
+            gap: 10px;
+            font-size: 26px;
+
+            .windowBody--btn {
+                cursor: pointer;
+            }
+        }
+
+        .windowBody--inputArea {
+            flex: 1;
+            height: 100%;
+            margin: 0 15px;
+
+            input {
+                padding: 10px;
+                width: 100%;
+                height: inherit;
+                border-radius: 30px;
+                border: 1px solid #CCC;
+                outline: 0;
+                color: #4A4A4A;
+            }
+        }
+
+        .windowBody--pos {
+            display: flex;
+            gap: 10px;
+            font-size: 26px;
+
+            .windowBody--btn {
+                cursor: pointer;
+            }
+        }
+    }
 `;
