@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { ChatItem } from './components/ChatItem';
 import { ChatIntro } from './components/ChatIntro';
 import { ChatItemType } from './types';
+import { ChatWindow } from './components/ChatWindow';
 
 const App = () => {
 
@@ -50,7 +51,7 @@ const App = () => {
             </Sidebar>
             <ContentArea>
                 {activeChat !== undefined &&
-                    <div>...</div>
+                    <ChatWindow chat={activeChat} />
                 }
                 {activeChat === undefined &&
                     <ChatIntro />
