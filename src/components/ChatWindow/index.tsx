@@ -17,9 +17,43 @@ interface Props {
 }
 
 export const ChatWindow = ({ chat }: Props) => {
+    let recognition: any;
+
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        recognition = new ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)();
+        recognition.interimResults = true;
+        recognition.lang = 'pt-BR';
+    } else {
+        alert('Reconhecimento de fala não suportado pelo navegador');
+    }
+        
     const [emojiOpen, setEmojiOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [listening, setListening] = useState(false);
 
     const handleEmojiClick = (emoji: EmojiClickData, event: MouseEvent) => {
+        setMessage(message + emoji.emoji);
+    }
+
+    const handleMicClick = () => {
+        if (recognition !== null) {
+            recognition.onstart = () => {
+                setListening(true);
+            }
+
+            recognition.onend = () => {
+                setListening(false);
+            }
+
+            recognition.onresult = (event: any) => {
+                setMessage(event.results[0][0].transcript);
+            }
+
+            recognition.start();
+        }
+    }
+
+    const handleSendClick = () => {
         // code here
     }
 
@@ -57,12 +91,19 @@ export const ChatWindow = ({ chat }: Props) => {
                     </div>
                 </div>
                 <div className="windowBody--inputArea">
-                    <input type="text" placeholder="Escreva uma mensagem" />
+                    <input type="text" placeholder="Escreva uma mensagem" value={message} onChange={e => setMessage(e.target.value)} />
                 </div>
                 <div className="windowBody--pos">
-                    <div className="windowBody--btn">
-                        <MicIcon fontSize="inherit" style={{color: '#919191'}} />
-                    </div>
+                    {message === '' &&
+                        <div className="windowBody--btn" onClick={handleMicClick}>
+                            <MicIcon fontSize="inherit" style={{color: listening ? '#126ECE' : '#919191'}} />
+                        </div>
+                    }
+                    {message !== '' &&
+                        <div className="windowBody--btn" onClick={handleSendClick}>
+                            <SendIcon fontSize="inherit" style={{color: '#919191'}} />
+                        </div>
+                    }
                 </div>
             </div>
         </WindowBody>
