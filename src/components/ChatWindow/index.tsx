@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from "react";
+
 import { ChatItemType, MessageType, UserType } from "../../types";
 import { WindowBody } from "./styles";
 
@@ -10,7 +12,6 @@ import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import CloseIcon from '@mui/icons-material/Close';
 import MicIcon from '@mui/icons-material/Mic';
 import SendIcon from '@mui/icons-material/Send';
-import { useState } from "react";
 import { MessageItem } from "../MessageItem";
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export const ChatWindow = ({ chat, user }: Props) => {
+    const body = useRef<HTMLDivElement>(document.createElement('div'));
     let recognition: any;
 
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -33,6 +35,12 @@ export const ChatWindow = ({ chat, user }: Props) => {
     const [message, setMessage] = useState('');
     const [listening, setListening] = useState(false);
     const [messageList, setMessageList] = useState<MessageType[]>([{body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1},   {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}]);
+
+    useEffect(() => {
+        if (body.current.scrollHeight > body.current.offsetHeight) {
+            body.current.scrollTop = body.current.scrollHeight -body.current.offsetHeight;
+        }
+    }, [messageList]);
 
     const handleEmojiClick = (emoji: EmojiClickData, event: MouseEvent) => {
         setMessage(message + emoji.emoji);
@@ -77,7 +85,7 @@ export const ChatWindow = ({ chat, user }: Props) => {
                     </div>
                 </div>
             </div>
-            <div className="windowBody--content">
+            <div className="windowBody--content" ref={body}>
                 {messageList.map((item, index) => (
                     <MessageItem key={index} data={item} user={user} />
                 ))}
