@@ -9,6 +9,7 @@ import { ChatItem } from './components/ChatItem';
 import { ChatIntro } from './components/ChatIntro';
 import { ChatItemType, UserType } from './types';
 import { ChatWindow } from './components/ChatWindow';
+import { NewChat } from './components/NewChat';
 
 const App = () => {
 
@@ -22,17 +23,24 @@ const App = () => {
     const [user, setUser] = useState<UserType>({
         id: 2, avatar: 'https://graph.facebook.com/1584754295372323/picture', name: 'Luan Costa'
     });
+    const [newChatOpen, setNewChatOpen] = useState(false);
 
     return (
         <Container>
             <Sidebar>
+                <NewChat 
+                    open={newChatOpen} 
+                    setOpen={setNewChatOpen} 
+                    user={user} 
+                    chatList={chatList}
+                />
                 <div className="header">
                     <img className="header--profile" src={user.avatar} alt="" />
                     <div className="header--buttons">
                         <div className="header--btn">
                             <DonutLargeIcon style={{color: '#919191'}} />
                         </div>
-                        <div className="header--btn">
+                        <div className="header--btn" onClick={() => setNewChatOpen(!newChatOpen)}>
                             <ChatIcon style={{color: '#919191'}} />
                         </div>
                         <div className="header--btn">
