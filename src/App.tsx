@@ -7,7 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import { ChatItem } from './components/ChatItem';
 import { ChatIntro } from './components/ChatIntro';
-import { ChatItemType } from './types';
+import { ChatItemType, UserType } from './types';
 import { ChatWindow } from './components/ChatWindow';
 
 const App = () => {
@@ -19,12 +19,15 @@ const App = () => {
         {chatId: 4, title: 'Luan Costa', image: 'https://graph.facebook.com/1584754295372323/picture'},
     ]);
     const [activeChat, setActiveChat] = useState<ChatItemType | undefined>();
+    const [user, setUser] = useState<UserType>({
+        id: 2, avatar: 'https://graph.facebook.com/1584754295372323/picture', name: 'Luan Costa'
+    });
 
     return (
         <Container>
             <Sidebar>
                 <div className="header">
-                    <img className="header--profile" src="https://graph.facebook.com/1584754295372323/picture" alt="" />
+                    <img className="header--profile" src={user.avatar} alt="" />
                     <div className="header--buttons">
                         <div className="header--btn">
                             <DonutLargeIcon style={{color: '#919191'}} />
@@ -51,7 +54,7 @@ const App = () => {
             </Sidebar>
             <ContentArea>
                 {activeChat !== undefined &&
-                    <ChatWindow chat={activeChat} />
+                    <ChatWindow chat={activeChat} user={user} />
                 }
                 {activeChat === undefined &&
                     <ChatIntro />

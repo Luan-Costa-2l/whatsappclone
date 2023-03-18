@@ -9,3 +9,9 @@ export interface MessageType {
     body: string;
     date: string;
 }
+
+export interface UserType {
+    id: number;
+    avatar: string;
+    name: string;
+}

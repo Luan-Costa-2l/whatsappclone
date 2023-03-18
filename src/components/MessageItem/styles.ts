@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-export const MessageBody = styled('div') `
+export const MessageBody = styled('div')<{who: boolean}> `
     margin-bottom: 10px;
     display: flex;
+    justify-content: ${props => props.who ? 'end' : 'start'};
 
     .messageBody--container {
         max-width: 90%;
@@ -10,7 +11,7 @@ export const MessageBody = styled('div') `
         display: flex;
         flex-direction: column;
         box-shadow: 0px 1px 3px #BBB;
-        background-color: #FFF;
+        background-color: ${props => props.who ? '#DCF8C6' : '#FFF'};
         border-radius: 10px;
 
         .messageBody--text {

@@ -1,4 +1,4 @@
-import { ChatItemType, MessageType } from "../../types";
+import { ChatItemType, MessageType, UserType } from "../../types";
 import { WindowBody } from "./styles";
 
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
@@ -15,9 +15,10 @@ import { MessageItem } from "../MessageItem";
 
 interface Props {
     chat: ChatItemType;
+    user: UserType;
 }
 
-export const ChatWindow = ({ chat }: Props) => {
+export const ChatWindow = ({ chat, user }: Props) => {
     let recognition: any;
 
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -31,7 +32,7 @@ export const ChatWindow = ({ chat }: Props) => {
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [listening, setListening] = useState(false);
-    const [messageList, setMessageList] = useState<MessageType[]>([{body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}]);
+    const [messageList, setMessageList] = useState<MessageType[]>([{body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1},   {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}]);
 
     const handleEmojiClick = (emoji: EmojiClickData, event: MouseEvent) => {
         setMessage(message + emoji.emoji);
@@ -78,7 +79,7 @@ export const ChatWindow = ({ chat }: Props) => {
             </div>
             <div className="windowBody--content">
                 {messageList.map((item, index) => (
-                    <MessageItem key={index} data={item} />
+                    <MessageItem key={index} data={item} user={user} />
                 ))}
             </div>
             <div className="windowBody--emojiArea">
