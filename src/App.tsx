@@ -10,6 +10,9 @@ import { ChatIntro } from './components/ChatIntro';
 import { ChatItemType, UserType } from './types';
 import { ChatWindow } from './components/ChatWindow';
 import { NewChat } from './components/NewChat';
+import { Login } from './components/Login';
+
+import { User } from 'firebase/auth'
 
 const App = () => {
 
@@ -20,10 +23,26 @@ const App = () => {
         {chatId: 4, title: 'Luan Costa', image: 'https://graph.facebook.com/1584754295372323/picture'},
     ]);
     const [activeChat, setActiveChat] = useState<ChatItemType | undefined>();
-    const [user, setUser] = useState<UserType>({
-        id: 2, avatar: 'https://graph.facebook.com/1584754295372323/picture', name: 'Luan Costa'
-    });
+    const [user, setUser] = useState<UserType | null>(null);
     const [newChatOpen, setNewChatOpen] = useState(false);
+
+    const handleLoginData = async (userInfo: User) => {
+        if (userInfo.displayName !== null && userInfo.photoURL !== null) {
+            let newUser = {
+                id: userInfo.uid,
+                name: userInfo.displayName,
+                avatar: userInfo.photoURL ?? 'https://graph.facebook.com/1584754295372323/picture'
+            }
+            setUser(newUser);
+        } else {
+            alert('Nome ou foto inválidos.')
+        }
+        
+    }
+
+    if (user === null) {
+        return (<Login onRecive={handleLoginData} />);
+    }
 
     return (
         <Container>

@@ -1,5 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { UserType } from './types';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,3 +18,18 @@ const app = initializeApp(firebaseConfig);
 
 // initialize cloud firestore and get a reference to the service
 const db = getFirestore(app);
+
+export const api = {
+    gPopup: async () => {
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+        try {
+            // The signed-in user info.
+            const response = await signInWithPopup(auth, provider);
+            return response;
+        } catch(error) {
+            // Handle Errors here.
+            alert(`Erro ao fazer login:\n${(error as Error).message}`);
+        }
+    }
+}
