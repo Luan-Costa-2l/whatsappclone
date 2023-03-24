@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { UserType } from './types';
 
@@ -33,5 +33,8 @@ export const api = {
             // Handle Errors here.
             alert(`Erro ao fazer login:\n${(error as Error).message}`);
         }
+    },
+    addUser: async (user: UserType) => {
+        await setDoc(doc(db, 'users', user.id), user, {merge: true});
     }
 }
