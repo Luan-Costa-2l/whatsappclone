@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NewChatBody } from "./styles";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ChatItemType, UserType } from '../../types';
+import { api } from '../../firebase';
 
 interface Props {
     open: boolean;
@@ -11,11 +12,17 @@ interface Props {
 }
 
 export const NewChat = ({ open, setOpen, user, chatList }: Props) => {
-    const [list, setList] = useState([
-        {id: 1, avatar: 'https://graph.facebook.com/1584754295372323/picture', name: 'new Fulano'},
-        {id: 1, avatar: 'https://graph.facebook.com/1584754295372323/picture', name: 'new Fulano'},
-        {id: 1, avatar: 'https://graph.facebook.com/1584754295372323/picture', name: 'new Fulano'},
-    ]);
+    const [list, setList] = useState<UserType[]>([]);
+
+    useEffect(() => {
+        if(user !== null && list.length === 0 && open) {
+            const handleNewChat = async () => {
+                    const result = await api.getContactList(user.id);
+                    setList(result); 
+            }
+            handleNewChat()
+        }
+    }, [open]);
 
     return (
         <NewChatBody open={open}>
