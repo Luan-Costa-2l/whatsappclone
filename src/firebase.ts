@@ -19,10 +19,12 @@ const app = initializeApp(firebaseConfig);
 // initialize cloud firestore and get a reference to the service
 const db = getFirestore(app);
 
+// initialize firebase authentication
+const auth = getAuth(app);
+
 export const api = {
     gPopup: async () => {
         const provider = new GoogleAuthProvider();
-        const auth = getAuth();
         try {
             // The signed-in user info.
             const response = await signInWithPopup(auth, provider);
