@@ -13,6 +13,7 @@ import { NewChat } from './components/NewChat';
 import { Login } from './components/Login';
 
 import { User } from 'firebase/auth'
+import { api } from './firebase';
 
 const App = () => {
 
@@ -33,6 +34,7 @@ const App = () => {
                 name: userInfo.displayName,
                 avatar: userInfo.photoURL ?? 'https://graph.facebook.com/1584754295372323/picture'
             }
+            await api.addUser(newUser);
             setUser(newUser);
         } else {
             alert('Nome ou foto inválidos.')
