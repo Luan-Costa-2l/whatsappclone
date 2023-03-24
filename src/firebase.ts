@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getFirestore, query, queryEqual, setDoc, where } from 'firebase/firestore';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { UserType } from './types';
 
@@ -36,5 +36,14 @@ export const api = {
     },
     addUser: async (user: UserType) => {
         await setDoc(doc(db, 'users', user.id), user, {merge: true});
+    },
+    getContactList: async (userId: string) => {
+        let list: UserType[] = [];
+        const q = query(collection(db, 'users'), where('id', '!=', userId));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((user) => {
+            list.push(user.data() as UserType);
+        })
+        return list;
     }
 }
