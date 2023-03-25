@@ -17,12 +17,7 @@ import { api } from './firebase';
 
 const App = () => {
 
-    const [chatList, setChatList] = useState<ChatItemType[]>([
-        {chatId: 1, title: 'Fulano de Tal', image: 'https://graph.facebook.com/1584754295372323/picture'},
-        {chatId: 2, title: 'Ciclano ', image: 'https://graph.facebook.com/1584754295372323/picture'},
-        {chatId: 3, title: 'Beltrano de Call', image: 'https://graph.facebook.com/1584754295372323/picture'},
-        {chatId: 4, title: 'Luan Costa', image: 'https://graph.facebook.com/1584754295372323/picture'},
-    ]);
+    const [chatList, setChatList] = useState<ChatItemType[]>([]);
     const [activeChat, setActiveChat] = useState<ChatItemType | undefined>();
     const [user, setUser] = useState<UserType | null>(null);
     const [newChatOpen, setNewChatOpen] = useState(false);
