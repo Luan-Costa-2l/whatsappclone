@@ -47,9 +47,11 @@ export const api = {
         return list;
     },
     addNewChat: async (user: UserType, user2: UserType) => {
-        const newChatRef = await addDoc(collection(db, 'chats'), {
+        const newChatRef = doc(collection(db, 'chats'));
+        await setDoc(newChatRef, {
             messages: [],
-            users: [user.id, user2.id]
+            users: [user.id, user2.id],
+            chatId: newChatRef.id
         });
 
         await Promise.all([
