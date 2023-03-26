@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getDocs, getFirestore, query, queryEqual, setDoc, where } from 'firebase/firestore';
+import { addDoc, arrayUnion, collection, doc, getDocs, getFirestore, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { UserType } from './types';
 
@@ -45,5 +45,30 @@ export const api = {
             list.push(user.data() as UserType);
         })
         return list;
+    },
+    addNewChat: async (user: UserType, user2: UserType) => {
+        const newChatRef = await addDoc(collection(db, 'chats'), {
+            messages: [],
+            users: [user.id, user2.id]
+        });
+
+        await Promise.all([
+            updateDoc(doc(db, 'users', user.id), {
+                chats: arrayUnion({
+                    chatId: newChatRef.id,
+                    title: user2.name,
+                    image: user2.avatar,
+                    with: user2.id
+                })
+            }),
+            updateDoc(doc(db, 'users', user2.id), {
+                chats: arrayUnion({
+                    chatId: newChatRef.id,
+                    title: user.name,
+                    image: user.avatar,
+                    with: user.id
+                })
+            })
+        ]);
     }
 }
