@@ -24,6 +24,11 @@ export const NewChat = ({ open, setOpen, user, chatList }: Props) => {
         }
     }, [open]);
 
+    const addNewChat = async (user2: UserType) => {
+        await api.addNewChat(user, user2);
+        setOpen(false);
+    }
+
     return (
         <NewChatBody open={open}>
             <div className="newChatBody--header">
@@ -36,7 +41,7 @@ export const NewChat = ({ open, setOpen, user, chatList }: Props) => {
             </div>
             <div className="newChatBody--list">
                 {list.map((item, index) => (
-                    <div className="newChatBody--item" key={index}>
+                    <div className="newChatBody--item" key={index} onClick={() => addNewChat(item)}>
                         <img className='newChatBody--itemAvatar' src={item.avatar} alt="" />
                         <div className='newChatBody--itemName'>{item.name}</div>
                     </div>
