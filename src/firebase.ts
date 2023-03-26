@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { addDoc, arrayUnion, collection, doc, getDocs, getFirestore, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { arrayUnion, collection, doc, getDocs, getFirestore, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { UserType } from './types';
+import { ChatType, UserType } from './types';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -72,5 +72,13 @@ export const api = {
                 })
             })
         ]);
+    },
+    onChatList: (userId: string, setChatList: React.Dispatch<React.SetStateAction<ChatType[]>>) => {
+        return onSnapshot(doc(db, 'users', userId), (doc) => {
+            if (doc.exists()) {
+                let data = doc.data();
+                setChatList(data.chats);
+            }
+        });
     }
 }

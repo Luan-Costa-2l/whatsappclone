@@ -17,10 +17,17 @@ import { api } from './firebase';
 
 const App = () => {
 
-    const [chatList, setChatList] = useState<ChatItemType[]>([]);
+    const [chatList, setChatList] = useState<ChatType[]>([]);
     const [activeChat, setActiveChat] = useState<ChatItemType | undefined>();
     const [user, setUser] = useState<UserType | null>(null);
     const [newChatOpen, setNewChatOpen] = useState(false);
+
+    useEffect(() => {
+        if (user !== null) {
+            let unsub = api.onChatList(user.id, setChatList);
+            return unsub;
+        }
+    } , [user]);
 
     const handleLoginData = async (userInfo: User) => {
         if (userInfo.displayName !== null && userInfo.photoURL !== null) {
