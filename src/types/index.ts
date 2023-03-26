@@ -1,7 +1,11 @@
 export interface ChatItemType {
-    chatId: number;
+    chatId: string;
     title: string;
     image: string;
+}
+
+export interface ChatType extends ChatItemType {
+    with: string;
 }
 
 export interface MessageType {
