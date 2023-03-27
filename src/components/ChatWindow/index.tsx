@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-import { ChatItemType, MessageType, UserType } from "../../types";
+import { ChatItemType, ChatType, MessageType, UserType } from "../../types";
 import { WindowBody } from "./styles";
 
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
@@ -13,9 +13,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import MicIcon from '@mui/icons-material/Mic';
 import SendIcon from '@mui/icons-material/Send';
 import { MessageItem } from "../MessageItem";
+import { api } from "../../firebase";
 
 interface Props {
-    chat: ChatItemType;
+    chat: ChatType;
     user: UserType;
 }
 
@@ -34,7 +35,13 @@ export const ChatWindow = ({ chat, user }: Props) => {
     const [emojiOpen, setEmojiOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [listening, setListening] = useState(false);
-    const [messageList, setMessageList] = useState<MessageType[]>([{body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1},   {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla bla', date: '19:00', author: 1}, {body: 'bla bla', date: '19:00', author: 2}, {body: 'bla bla bla', date: '19:00', author: 1}]);
+    const [messageList, setMessageList] = useState<MessageType[]>([]);
+
+    useEffect(() => {
+        setMessageList([]);
+        let unsub = api.onChatContent(chat.chatId, setMessageList);
+        return unsub;
+    }, [chat.chatId]);
 
     useEffect(() => {
         if (body.current.scrollHeight > body.current.offsetHeight) {
