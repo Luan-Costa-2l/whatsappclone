@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface ChatItemType {
     chatId: string;
     title: string;
@@ -6,6 +8,8 @@ export interface ChatItemType {
 
 export interface ChatType extends ChatItemType {
     with: string;
+    lastMessage?: string;
+    lastMessageDate?: Timestamp;
 }
 
 export interface MessageType {
