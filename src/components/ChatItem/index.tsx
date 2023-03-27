@@ -1,13 +1,25 @@
-import { ChatItemType } from "../../types";
+import { useState, useEffect } from 'react';
+import { ChatType } from "../../types";
 import { ChatItemBody } from "./styles"
 
 type Props = {
-    item: ChatItemType;
+    item: ChatType;
     active: boolean;
     onClick: () => void;
 }
 
 export const ChatItem = ({ item, active, onClick }: Props) => {
+    const [time, setTime] = useState('');
+
+    useEffect(() => {
+        if (item.lastMessageDate) {
+            let date = new Date(item.lastMessageDate.seconds * 1000);
+            let hDate = date.getHours();
+            let mDate = date.getMinutes();
+            setTime(`${hDate < 10 ? '0'+hDate : hDate}:${mDate < 10 ? '0'+mDate : mDate}`)
+        }
+    }, [item]);
+    
     return (
         <ChatItemBody onClick={onClick} className={active ? 'active': ''}>
             <div className="chatItemBody--avatar">
@@ -16,11 +28,11 @@ export const ChatItem = ({ item, active, onClick }: Props) => {
             <div className="chatItemBody--lines">
                 <div className="chatItemBody--line">
                     <div className="chatItemBody--name">{item.title}</div>
-                    <div className="chatItemBody--date">19:45</div>
+                    <div className="chatItemBody--date">{time}</div>
                 </div>
                 <div className="chatItemBody--line">
                     <div className="chatItemBody--lastMsg">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus voluptas quos vel beatae fugit, sunt ut labore numquam. Vitae cupiditate blanditiis quas autem laboriosam hic id placeat quidem aut quia!</p>
+                        <p>{item.lastMessage}</p>
                     </div>
                 </div>
             </div>
