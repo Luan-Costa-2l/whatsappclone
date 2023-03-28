@@ -13,9 +13,10 @@ export interface ChatType extends ChatItemType {
 }
 
 export interface MessageType {
-    author: number;
+    author: string;
     body: string;
     date: string;
+    type?: string;
 }
 
 export interface UserType {
