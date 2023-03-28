@@ -15,7 +15,7 @@ export interface ChatType extends ChatItemType {
 export interface MessageType {
     author: string;
     body: string;
-    date: string;
+    date: Timestamp;
     type?: string;
 }
 
