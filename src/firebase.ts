@@ -88,5 +88,17 @@ export const api = {
                 setMessageList(data.messages);
             }
         });
+    },
+    sendMessage: async (chatId: string, userId: string, type: string, body: string) => {
+        let now = new Date();
+
+        await updateDoc(doc(db, 'chats', chatId), {
+            messages: arrayUnion({
+                type,
+                author: userId,
+                body,
+                date: now
+            })
+        });
     }
 }
