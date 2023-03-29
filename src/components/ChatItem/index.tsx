@@ -12,7 +12,7 @@ export const ChatItem = ({ item, active, onClick }: Props) => {
     const [time, setTime] = useState('');
 
     useEffect(() => {
-        if (item.lastMessageDate) {
+        if (item.lastMessageDate?.seconds) {
             let date = new Date(item.lastMessageDate.seconds * 1000);
             let hDate = date.getHours();
             let mDate = date.getMinutes();

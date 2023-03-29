@@ -71,8 +71,18 @@ export const ChatWindow = ({ chat, user }: Props) => {
         }
     }
 
-    const handleSendClick = () => {
-        // code here
+    const handleInputKeyUp: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+        if (event.code === 'Enter') {
+            handleSendClick();
+        }
+    }
+
+    const handleSendClick = async () => {
+        if (message !== '') {
+            await api.sendMessage(chat.chatId, user.id, 'text', message);
+            setMessage('');
+            setEmojiOpen(false);
+        }
     }
 
     return (
@@ -111,7 +121,13 @@ export const ChatWindow = ({ chat, user }: Props) => {
                     </div>
                 </div>
                 <div className="windowBody--inputArea">
-                    <input type="text" placeholder="Escreva uma mensagem" value={message} onChange={e => setMessage(e.target.value)} />
+                    <input 
+                        type="text" 
+                        placeholder="Escreva uma mensagem" 
+                        value={message} 
+                        onChange={e => setMessage(e.target.value)} 
+                        onKeyUp={handleInputKeyUp}
+                    />
                 </div>
                 <div className="windowBody--pos">
                     {message === '' &&
