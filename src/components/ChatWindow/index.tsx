@@ -36,10 +36,11 @@ export const ChatWindow = ({ chat, user }: Props) => {
     const [message, setMessage] = useState('');
     const [listening, setListening] = useState(false);
     const [messageList, setMessageList] = useState<MessageType[]>([]);
+    const [users, setUsers] = useState<string[]>([]);
 
     useEffect(() => {
         setMessageList([]);
-        let unsub = api.onChatContent(chat.chatId, setMessageList);
+        let unsub = api.onChatContent(chat.chatId, setMessageList, setUsers);
         return unsub;
     }, [chat.chatId]);
 
@@ -79,7 +80,7 @@ export const ChatWindow = ({ chat, user }: Props) => {
 
     const handleSendClick = async () => {
         if (message !== '') {
-            await api.sendMessage(chat.chatId, user.id, 'text', message);
+            await api.sendMessage(chat.chatId, user.id, 'text', message, users);
             setMessage('');
             setEmojiOpen(false);
         }
