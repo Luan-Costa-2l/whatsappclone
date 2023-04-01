@@ -109,7 +109,7 @@ export const api = {
                 let chatsData = [...userData.chats];
 
                 for (let chat of chatsData) {
-                    if (chat.id === chatId) {
+                    if (chat.chatId === chatId) {
                         chat.lastMessage = body;
                         chat.lastMessageDate = now;
                     }
