@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChatList, Container, ContentArea, SearchArea, Sidebar } from "./App.styles"
 
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
@@ -7,7 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import { ChatItem } from './components/ChatItem';
 import { ChatIntro } from './components/ChatIntro';
-import { ChatItemType, UserType } from './types';
+import { ChatType, UserType } from './types';
 import { ChatWindow } from './components/ChatWindow';
 import { NewChat } from './components/NewChat';
 import { Login } from './components/Login';
@@ -18,7 +18,7 @@ import { api } from './firebase';
 const App = () => {
 
     const [chatList, setChatList] = useState<ChatType[]>([]);
-    const [activeChat, setActiveChat] = useState<ChatItemType | undefined>();
+    const [activeChat, setActiveChat] = useState<ChatType | undefined>();
     const [user, setUser] = useState<UserType | null>(null);
     const [newChatOpen, setNewChatOpen] = useState(false);
 
