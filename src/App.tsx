@@ -78,7 +78,7 @@ const App = () => {
                     </div>
                 </SearchArea>
                 <ChatList>
-                    {chatList.map((item, index) => (
+                    {chatList && chatList.map((item, index) => (
                         <ChatItem key={index} item={item} active={item.chatId === activeChat?.chatId} onClick={() => setActiveChat(item)} />
                     ))}
                 </ChatList>
