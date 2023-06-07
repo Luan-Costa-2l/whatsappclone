@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageType, UserType } from "../../types";
 import { MessageBody } from "./styles";
+import { isUrl } from '../../helpers';
 
 interface Props {
     data: MessageType;
@@ -22,7 +23,12 @@ export const MessageItem = ({ data, user }: Props) => {
     return (
         <MessageBody who={data.author === user.id}>
             <div className="messageBody--container">
-                <div className="messageBody--text">{data.body}</div>
+                {!isUrl(data.body) &&
+                    <div className="messageBody--text">{data.body}</div>
+                }
+                {isUrl(data.body) &&
+                    <img src={data.body} alt="" className='messageBody--image' />
+                }
                 <div className="messageBody--date">{time}</div>
             </div>
         </MessageBody>
