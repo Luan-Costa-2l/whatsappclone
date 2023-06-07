@@ -12,11 +12,13 @@ export interface ChatType extends ChatItemType {
     lastMessageDate?: Timestamp;
 }
 
+export type FileType = 'text' | 'file';
+export type BodyType = string | File
 export interface MessageType {
     author: string;
     body: string;
     date: Timestamp;
-    type?: string;
+    type?: FileType;
 }
 
 export interface UserType {

@@ -1,7 +1,10 @@
 import { initializeApp } from 'firebase/app';
 import { arrayUnion, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { ChatType, MessageType, UserType } from './types';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+
+import { BodyType, ChatType, FileType, MessageType, UserType } from './types';
+import { randomId } from './helpers';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,6 +24,10 @@ const db = getFirestore(app);
 
 // initialize firebase authentication
 const auth = getAuth(app);
+
+const storage = getStorage(app);
+
+const usersImagesRef = ref(storage, 'userImages');
 
 export const api = {
     gPopup: async () => {
@@ -108,14 +115,21 @@ export const api = {
             }
         });
     },
-    sendMessage: async (chatId: string, userId: string, type: string, body: string, users: string[]) => {
+    sendMessage: async function (chatId: string, userId: string, type: FileType, body: BodyType, users: string[]) {
         let now = new Date();
+        let bodyContent: string;
+
+        if (type === 'file') {
+            bodyContent = await this.sendMessageFile(userId, body as File);
+        } else {
+            bodyContent = body as string;
+        }
 
         await updateDoc(doc(db, 'chats', chatId), {
             messages: arrayUnion({
                 type,
                 author: userId,
-                body,
+                body: bodyContent,
                 date: now
             })
         });
@@ -128,7 +142,7 @@ export const api = {
 
                 for (let chat of chatsData) {
                     if (chat.chatId === chatId) {
-                        chat.lastMessage = body;
+                        chat.lastMessage = bodyContent;
                         chat.lastMessageDate = now;
                     }
                 }
@@ -138,5 +152,14 @@ export const api = {
                 });
             }
         }
+    },
+    sendMessageFile: async (userId: string, file: File) => {
+        const userRef = ref(usersImagesRef, userId);
+        const fileId = randomId();
+        const fileRef = ref(userRef, fileId);
+
+        const uploadResponse = await uploadBytes(fileRef, file);
+        const fileUrl = await getDownloadURL(uploadResponse.ref);
+        return fileUrl;
     }
 }
