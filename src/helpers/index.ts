@@ -4,3 +4,12 @@ export const randomId = () => {
     const id = random.concat(dateNow);
     return id;
 }
+
+export const isUrl = (string: string) => {
+    try {
+        new URL(string);
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
