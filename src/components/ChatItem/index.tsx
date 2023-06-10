@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ChatType } from "../../types";
 import { ChatItemBody } from "./styles"
+import { isUrl } from '../../helpers';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 type Props = {
     item: ChatType;
@@ -32,7 +34,9 @@ export const ChatItem = ({ item, active, onClick }: Props) => {
                 </div>
                 <div className="chatItemBody--line">
                     <div className="chatItemBody--lastMsg">
-                        <p>{item.lastMessage}</p>
+                        <p>
+                            {isUrl(item.lastMessage ?? '') ? <><CameraAltIcon fontSize='small' /> Foto</> : item.lastMessage}
+                        </p>
                     </div>
                 </div>
             </div>

@@ -79,6 +79,22 @@ export const WindowBody = styled('div') `
         }
     }
 
+    .windowBody--preview {
+        max-height: 400px;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 1px solid rgb(221, 221, 221);
+        border-left: 1px solid rgb(221, 221, 221);
+        transition: all 1s ease;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px #AAA;
+        }
+    }
+
     .windowBody--footer {
         padding: 10px 15px;
         display: flex;
@@ -95,6 +111,10 @@ export const WindowBody = styled('div') `
                 cursor: pointer;
                 overflow: hidden;
                 transition: all 0.3s ease;
+            }
+
+            input[type=file] {
+                display: none;
             }
         }
 

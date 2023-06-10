@@ -53,6 +53,9 @@ export const ChatItemBody = styled('div') `
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
+                    display: flex;
+                    gap: 2px;
+                    margin-top: 3px;
                 }
             }
         }

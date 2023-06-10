@@ -19,6 +19,18 @@ export const MessageBody = styled('div')<{who: boolean}> `
             font-size: 14px;
         }
 
+        .messageBody--image {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .messageBody--image ~ .messageBody--date {
+            color: #FFF;
+            box-shadow: #555;
+            margin-top: -20px;
+            margin-bottom: 5px;
+        }
+
         .messageBody--date {
             margin-right: 5px;
             font-size: 12px;
@@ -26,6 +38,8 @@ export const MessageBody = styled('div')<{who: boolean}> `
             text-align: right;
             height: 15px;
             margin-top: -15px;
+            margin-left: auto;
+            max-width: fit-content;
         }
     }
 `;
