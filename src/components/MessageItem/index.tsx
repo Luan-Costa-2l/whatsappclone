@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageType, UserType } from "../../types";
 import { MessageBody } from "./styles";
-import { isUrl } from '../../helpers';
+import { hasUrl, isUrl } from '../../helpers';
 
 interface Props {
     data: MessageType;
@@ -16,17 +16,26 @@ export const MessageItem = ({ data, user }: Props) => {
             let date = new Date(data.date.seconds * 1000);
             let hours = date.getHours();
             let minutes = date.getMinutes();
-            setTime(`${hours < 10 ? '0'+hours : hours}:${minutes < 10 ? '0'+minutes : minutes}`);  
+            setTime(`${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`);
         }
     }, []);
-    
+
     return (
         <MessageBody who={data.author === user.id}>
             <div className="messageBody--container">
-                {!isUrl(data.body) &&
+                {data.type === 'text' && !hasUrl(data.body) &&
                     <div className="messageBody--text">{data.body}</div>
                 }
-                {isUrl(data.body) &&
+                {data.type === 'text' && hasUrl(data.body) &&
+                    <div className="messageBody--text">
+                        {data.body.split(' ').map((item, index) => (
+                            <span key={index}>
+                                {isUrl(item.trim()) ? <><a href={item.trim()} target='_blank'>{item}</a> </> : <>{item} </>}
+                            </span>
+                        ))}
+                    </div>
+                }
+                {data.type === 'file' &&
                     <img src={data.body} alt="" className='messageBody--image' />
                 }
                 <div className="messageBody--date">{time}</div>

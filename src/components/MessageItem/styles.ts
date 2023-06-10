@@ -38,6 +38,8 @@ export const MessageBody = styled('div')<{who: boolean}> `
             text-align: right;
             height: 15px;
             margin-top: -15px;
+            margin-left: auto;
+            max-width: fit-content;
         }
     }
 `;

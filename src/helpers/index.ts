@@ -13,3 +13,9 @@ export const isUrl = (string: string) => {
         return false;
     }
 }
+
+export const hasUrl = (string: string) => {
+    let list = string.split(' ');
+    const result = list.find(item => isUrl(item.trim()));
+    return !!result;
+}
