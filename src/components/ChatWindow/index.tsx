@@ -172,7 +172,7 @@ export const ChatWindow = ({ chat, user }: Props) => {
                             <MicIcon fontSize="inherit" style={{color: listening ? '#126ECE' : '#919191'}} />
                         </div>
                     }
-                    {message !== '' || file &&
+                    {message !== '' && !file &&
                         <div className="windowBody--btn" onClick={() => handleSendClick(message ? 'text' : 'file')}>
                             <SendIcon fontSize="inherit" style={{color: '#919191'}} />
                         </div>
